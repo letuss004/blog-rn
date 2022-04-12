@@ -1,44 +1,77 @@
 import React, {useContext} from 'react';
-import {Text, View, StyleSheet, FlatList, Button} from 'react-native';
-import Context, {Provider} from "../context/Context";
+import {TouchableOpacity, Text, View, StyleSheet, FlatList, Button} from 'react-native';
+import BlogContext from "../context/BlogContext";
+import {AntDesign, Feather} from '@expo/vector-icons';
 
 
-const IndexScreen = () => {
-    const {posts, dispatch} = useContext(Context);
+const IndexScreen = props => {
+    const {state, dispatcher} = useContext(BlogContext.Context);
+    const {navigation} = props;
 
-    return <View>
+    return <>
         <FlatList
-            data={posts}
-            keyExtractor={post => {
-                console.log(post.title);
-                return post.title;
-            }}
+            data={state}
             renderItem={
-                ({item}) => <Text>{item.title}</Text>
+                ({item}) => (
+                    <View style={styles.row}>
+                        <TouchableOpacity
+                            onPress={
+                                () => navigation.navigate('Show', {id: item.id})
+                            }>
+                            <Text style={styles.title}>
+                                {item.title}
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => dispatcher.deletePost(item.id)}>
+                            <AntDesign
+                                name="delete"
+                                style={styles.icon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
+            keyExtractor={
+                post => post.title
             }
         />
         <Button
-            onPress={() => dispatch({
-                type: 'c',
-                title: `Post #${posts.length + 1}`
-            })}
+            onPress={dispatcher.addPost}
             title={'Add post'}
         />
-        <Button
-            onPress={() => dispatch({
-                type: 'd'
-            })}
-            title={'Delete post'}
-        />
-        <Button
-            onPress={() => dispatch({
-                type: 'u',
-                title: 'Edit the last element'
-            })}
-            title={'Edit the last post'}
-        />
-    </View>
+    </>
+};
+
+IndexScreen.navigationOptions = ({navigation}) => {
+    return {
+        headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+                <Feather name="plus" size={30}/>
+            </TouchableOpacity>
+        ),
+    };
 }
+
+const styles = StyleSheet.create({
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 20,
+        borderTopWidth: 1,
+        borderColor: 'gray'
+    },
+    icon: {
+        color: 'red',
+        fontSize: 20,
+        marginRight: 10
+    },
+    title: {
+        fontSize: 20,
+        marginLeft: 10
+    }
+})
 
 
 export default IndexScreen;
