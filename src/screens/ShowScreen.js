@@ -9,7 +9,9 @@ const ShowScreen = props => {
     const post = state.find(
         post => post.id === navigation.getParam('id')
     );
+    console.log(post)
     return <View>
+        <Text>{post.id}</Text>
         <Text>{post.title}</Text>
         <Text>{post.content}</Text>
     </View>
@@ -18,7 +20,7 @@ const ShowScreen = props => {
 ShowScreen.navigationOptions = ({navigation}) => {
     return {
         headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Edit', {id: navigation.getParam('id')})}>
                 <EvilIcons name="pencil" size={35}/>
             </TouchableOpacity>
         ),

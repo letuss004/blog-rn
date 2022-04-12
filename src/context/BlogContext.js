@@ -2,18 +2,19 @@ import React, {useReducer} from 'react';
 import Context from './Context';
 
 const initState = [
-    {title: "Post #1", id: 1},
-    {title: "Post #2", id: 2}
+    {title: "Post #1", id: 1, content: ''},
+    {title: "Post #2", id: 2, content: ''}
 ]
 
 const reducer = (posts, payload) => {
-    const {type, title, id} = payload;
+    const {type, title, id, content} = payload;
 
     switch (type) {
         case 'c':
-            return [...posts, {title, id}]
+            return [...posts, {title, id, content}]
         case 'u':
             posts[posts.length - 1].title = title;
+            posts[posts.length - 1].content = content;
             return [...posts]
         case 'd':
             return posts.filter(post => post.id !== id)
@@ -40,17 +41,19 @@ const deletePost = (dispatch, id) => {
     });
 }
 
-const editPost = (dispatch, id, title) => {
+const updatePost = (dispatch, id, title, content) => {
     return dispatch({
         type: 'u',
         id,
-        title
+        title,
+        content
     });
 };
 
 const actions = {
     addPost,
     deletePost,
+    updatePost
 };
 
 export default Context(reducer, actions, initState);

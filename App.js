@@ -5,11 +5,13 @@ import {createAppContainer} from "react-navigation";
 import BlogContext from './src/context/BlogContext';
 import ShowScreen from "./src/screens/ShowScreen";
 import CreateScreen from "./src/screens/CreateScreen";
+import UpdateScreen from "./src/screens/UpdateScreen";
 
 const navigator = createStackNavigator({
     Index: IndexScreen,
     Show: ShowScreen,
-    Create: CreateScreen
+    Create: CreateScreen,
+    Edit: UpdateScreen
 }, {
     initialRouteName: 'Index',
     defaultNavigationOptions: {

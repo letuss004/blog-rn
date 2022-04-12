@@ -37,10 +37,6 @@ const IndexScreen = props => {
                 post => post.title
             }
         />
-        <Button
-            onPress={dispatcher.addPost}
-            title={'Add post'}
-        />
     </>
 };
 

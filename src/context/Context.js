@@ -13,8 +13,9 @@ export default (reducer, actions, initState) => {
                 dispatcher[key] = (title, content) => actions[key](dispatch, title, content);
             } else if (key == 'deletePost') {
                 dispatcher[key] = (id) => actions[key](dispatch, id);
+            } else if (key == 'updatePost') {
+                dispatcher[key] = (id, title, content) => actions[key](dispatch, id, title, content);
             }
-            // dispatcher[key] = (id, title, content) => actions[key](dispatch, id, title, content);
         }
 
         return <Context.Provider value={{state, dispatcher}}>
