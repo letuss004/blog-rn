@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {TextInput, View, Text, Button, StyleSheet} from "react-native";
 
-const CreateScreen = (props) => {
-    const {navigation, initTitle, initContent, onSubmit, id} = props
+const Form = (props) => {
+    const {initTitle, initContent, onSubmit, id} = props
     const [title, setTitle] = useState(initTitle);
     const [content, setContent] = useState(initContent);
 
@@ -21,17 +21,20 @@ const CreateScreen = (props) => {
         />
         <Button
             title={'Submit'}
-            onPress={() => {
-                if (id) {
-                    onSubmit(id, title, content)
-                } else {
-                    onSubmit(title, content)
-                }
-                navigation.navigate('Index')
-            }}
+            onPress={
+                () => (id) ? onSubmit(id, title, content) : onSubmit(title, content)
+            }
         />
     </View>
 };
+
+Form.defaultProps = {
+    initTitle: '',
+    initContent: '',
+    onSubmit: () => {
+    },
+};
+
 
 const styles = StyleSheet.create({
     input: {
@@ -45,4 +48,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CreateScreen;
+export default Form;

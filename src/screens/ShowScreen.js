@@ -4,7 +4,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import {EvilIcons} from "@expo/vector-icons";
 
 const ShowScreen = props => {
-    const {state, dispatch} = useContext(BlogContext.Context);
+    const {state} = useContext(BlogContext.Context);
     const {navigation} = props;
     const post = state.find(
         post => post.id === navigation.getParam('id')
@@ -20,7 +20,9 @@ const ShowScreen = props => {
 ShowScreen.navigationOptions = ({navigation}) => {
     return {
         headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Edit', {id: navigation.getParam('id')})}>
+            <TouchableOpacity onPress={
+                () => navigation.navigate('Edit', {id: navigation.getParam('id')})
+            }>
                 <EvilIcons name="pencil" size={35}/>
             </TouchableOpacity>
         ),

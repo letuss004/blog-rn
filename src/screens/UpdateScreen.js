@@ -13,8 +13,13 @@ const UpdateScreen = props => {
         navigation={navigation}
         initTitle={post.title}
         initContent={post.content}
-        id={post.id}
-        onSubmit={(id, title, content) => dispatcher.updatePost(id, title, content)}
+        id={navigation.getParam('id')}
+        onSubmit={
+            (id, title, content) => {
+                dispatcher.updatePost(id, title, content)
+                navigation.navigate('Index')
+            }
+        }
     />
 };
 

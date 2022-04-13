@@ -8,9 +8,12 @@ const CreateScreen = props => {
 
     return <Form
         navigation={navigation}
-        initTitle={''}
-        initContent={''}
-        onSubmit={(title, content) => dispatcher.addPost(title, content)}
+        onSubmit={
+            (title, content) => {
+                dispatcher.addPost(title, content)
+                navigation.navigate('Index')
+            }
+        }
     />
 };
 

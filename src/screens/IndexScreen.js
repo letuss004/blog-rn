@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {TouchableOpacity, Text, View, StyleSheet, FlatList, Button} from 'react-native';
+import {TouchableOpacity, Text, View, StyleSheet, FlatList} from 'react-native';
 import BlogContext from "../context/BlogContext";
 import {AntDesign, Feather} from '@expo/vector-icons';
 

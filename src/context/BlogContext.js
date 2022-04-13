@@ -13,8 +13,14 @@ const reducer = (posts, payload) => {
         case 'c':
             return [...posts, {title, id, content}]
         case 'u':
-            posts[posts.length - 1].title = title;
-            posts[posts.length - 1].content = content;
+            posts.forEach(
+                post => {
+                    if (post.id === id) {
+                        post.title = title;
+                        post.content = content;
+                    }
+                }
+            )
             return [...posts]
         case 'd':
             return posts.filter(post => post.id !== id)
